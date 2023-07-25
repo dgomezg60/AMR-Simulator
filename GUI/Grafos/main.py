@@ -5,7 +5,7 @@ from DB.StartDB import Graphs
 
 def ServiceGrafos(frame):
     graph = Graph()
-    global MapGrafict
+    global MapGraph
     graph_data = Graphs()
     # Add vertices
     for node in graph_data.values():
@@ -15,9 +15,9 @@ def ServiceGrafos(frame):
       for edge in node['Edge']:
         graph.add_edge(node['Node'],edge['neightbour'],edge['weight'])
     graphy_drawing = graphy()
+    MapGraph = graph
     line_graph = FigureCanvasTkAgg(graphy_drawing.figure,frame)
     graphy_drawing.draw(graph_data)
-    MapGrafict = graphy_drawing
     line_graph.get_tk_widget().pack()
     #graphy_drawing.move_point()
 

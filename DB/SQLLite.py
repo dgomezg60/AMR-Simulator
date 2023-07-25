@@ -22,13 +22,19 @@ class DB:
         Date = self.__cursor.fetchall()
         return Date 
 
+    def ReadColum(self,Table,Colum):
+        Read = f'SELECT {Colum} FROM {Table}'
+        self.__cursor.execute(Read)
+        IDs = self.__cursor.fetchall()
+        return IDs
+
     def DeleteRow(self,Table,Condition):
         Delete = f"DELETE FROM {Table} WHERE {Condition}"
         self.__cursor.execute(Delete)
         self.__conn.commit()
 
-    def UpdateDate(self,Table,UpdateData):
-        Update = f"UPDATE {Table} SET {UpdateData}"
+    def UpdateDate(self,Table,UpdateData,Objective):
+        Update = f"UPDATE {Table} SET {UpdateData} WHERE {Objective}"
         self.__cursor.execute(Update)
 
     def Find(self,Table,Condition):
@@ -65,15 +71,21 @@ class DB:
         self.__conn.commit()
 
     def InsertRow(self,Table,Value):
-        insert = f"INSERT INTO {Table} VALUES {Value}"
-        self.__cursor.execute(insert)
+        Insert = f"INSERT INTO {Table} VALUES {Value}"
+        self.__cursor.execute(Insert)
         self.__conn.commit()
 
     def Connect(self):
-        self.__conn = sql.connect("DB\db\Probe_sql.db")
+        self.__conn = sql.connect("DB/db/Probe_sql.db")
         self.__conn.commit()
         self.__cursor = self.__conn.cursor()
 
     def Disconnect(self):
         self.__conn.commit()
         self.__conn.close()
+
+# if __name__ == '__main__':
+#     DataBase = DB()
+#     DataBase.Connect()
+
+#     DataBase.InsertRow('AMR',"(1,'Enty','A0',50,' ')")
